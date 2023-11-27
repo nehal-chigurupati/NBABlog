@@ -1,18 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework import viewsets
+from .serializers import *
+from .models import *
 
-def index(request):
-    return HttpResponse("This is where all my articles will be listed.")
+class IndexView(viewsets.ModelViewSet):
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
 
-def article(request, article_id):
-    return HttpResponse("You've accessed article " + str(article_id))
+class TeamView(viewsets.ModelViewSet):
+    serializer_class = TeamSerializer
+    queryset = Team.objects.all()
 
-def tag(request, tag_id):
-    return HttpResponse("You've accessed articles for tag " + str(tag_id))
+class PlayerView(viewsets.ModelViewSet):
+    serializer_class = PlayerSerializer
+    queryset = Player.objects.all()
 
-def team_page(request, team_id):
-    return HttpResponse("You've accessed the team page for team " + str(team_id))
+class TagView(viewsets.ModelViewSet):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all()
 
-def player_page(request, player_id):
-    return HttpResponse("You've accessed the player page for " + str(player_id))
 
